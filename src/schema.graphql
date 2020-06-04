@@ -1,0 +1,56 @@
+scalar JSON
+scalar Level
+scalar Role
+
+type Query {
+    representativeInfoByAddress(apiKey: String!, address: String!, includeOffices: Boolean, level: Level, role: Role): representativeInfoReturn
+}
+
+type representativeInfoReturn {
+    kind: String
+    normalizedInput: Address
+    geoDivisions: JSON
+    offices: [Office!]
+    officials: [Official!]
+
+}
+
+type Address {
+    locationName: String,
+    line1: String,
+    line2: String,
+    line3: String,
+    city: String,
+    state: String,
+    zip: String
+}
+
+type Office {
+    name: String,
+    divisionId: String,
+    levels: [String]
+    roles: [String]
+    sources: [Source]
+    officialIndices: [Int]
+}
+
+type Source {
+    name: String
+    official: Boolean
+}
+
+type Official {
+    name: String
+    address: [Address]
+    party: String
+    phones: [String]
+    urls: [String]
+    photoUrl: String
+    emails: [String]
+    channels: [Channel]
+}
+
+type Channel {
+    type: String
+    id: String
+}
