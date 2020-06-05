@@ -1,0 +1,25 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'Ubuntu-18.04'
+
+variables:
+  imageName: 'civic-information-api-graphql-wrapper'
+
+steps:
+- task: Docker@2
+  displayName: Build an image
+  inputs:
+    repository: $(imageName)
+    command: build
+    Dockerfile: app/Dockerfile
+- task: Docker@2
+  displayName: Push image
+  inputs:
+    containerRegistry: blmprojects.azurecr.io
+    repository: $(imageName)
+    command: push
+    tags: |
+      test1
+      test2
